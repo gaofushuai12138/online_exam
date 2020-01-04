@@ -2,5 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.heeexy.example.dao.SysLogDao">
+   <resultMap id="SysLog" type="com.heeexy.example.bean.SysLog">
+       <id column="logid" property="logid"></id>
+       <result column="username" property="username"></result>
+       <result column="module" property="moudle"></result>
+       <result column="description" property="description"></result>
+       <result column="ip" property="ip"></result>
+       <result column="operationtime" property="operationTime"></result>
+   </resultMap>
+
+    <insert id="addSysLog">
+        insert into syslog(module,description,ip,operationtime,username) values (#{moudle},#{description},#{ip},#{operationTime},#{username})
+    </insert>
+
 
 </mapper>

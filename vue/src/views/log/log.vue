@@ -1,9 +1,20 @@
 <template>
     <div class="app-container">
         <div class="filter-container">
-            <el-input v-model="queryForm.operater" placeholder="操作者" style="width:300px"></el-input>
+            
+              <!-- <el-select class="block" style="margin-left:1200px;margin-top:-40px;position:absolute" v-model="queryForm.value" clearable placeholder="操作类型">
+                <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+               
+            </el-select> -->
+            <el-button type="primary" style="margin-left:0px;margin-top:-40px;width:80px;" @click="queryLog">查询</el-button>
+            <el-input v-model="queryForm.operater" placeholder="操作者" style="width:300px;margin-left:20px"></el-input>
             <el-input v-model="queryForm.operaterecord" placeholder="操作记录" style="width:300px;margin-left:40px"></el-input>
-            <div class="block" style="margin-left:700px;margin-top:-40px;width:400px">
+            <div class="block" style="margin-left:830px;margin-top:-40px;width:400px">
                 <el-date-picker
                 style="width:450px"
                 v-model="queryForm.dateTime"
@@ -13,16 +24,6 @@
                 end-placeholder="结束日期">
                 </el-date-picker>
             </div>
-              <el-select class="block" style="margin-left:1200px;margin-top:-40px;position:absolute" v-model="queryForm.value" clearable placeholder="操作类型">
-                <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-               
-            </el-select>
-            <el-button type="primary" style="margin-top:-40px;width:80px;position:fixed;left:85%;right:15%" @click="queryLog">查询</el-button>
             <el-table
                 border
                 :data="tableData"

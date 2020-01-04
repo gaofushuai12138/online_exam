@@ -2,11 +2,14 @@ package com.heeexy.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.bean.SysLog;
+import com.heeexy.example.config.annotation.Log;
 import com.heeexy.example.service.UserService;
 import com.heeexy.example.util.CommonUtil;
+import com.heeexy.example.util.ECache;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +37,7 @@ public class UserController {
 
 	@RequiresPermissions("user:add")
 	@PostMapping("/addUser")
+	@Log(moudle = "用户管理",descrption = "添加用户")
 	public JSONObject addUser(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "username, password, nickname,   roleId");
 		System.out.println("--------------"+requestJson);
@@ -44,6 +48,7 @@ public class UserController {
 
 	@RequiresPermissions("user:update")
 	@PostMapping("/updateUser")
+	@Log(moudle = "用户管理",descrption = "修改用户")
 	public JSONObject updateUser(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, " nickname,   roleId, deleteStatus, userId");
 		return userService.updateUser(requestJson);
@@ -78,6 +83,7 @@ public class UserController {
 	 */
 	@RequiresPermissions("role:add")
 	@PostMapping("/addRole")
+	@Log(moudle = "权限管理",descrption = "添加角色权限")
 	public JSONObject addRole(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "roleName,permissions");
 //		LocalDateTime localDateTime = new LocalDateTime();
@@ -90,9 +96,10 @@ public class UserController {
 	 */
 	@RequiresPermissions("role:update")
 	@PostMapping("/updateRole")
+	@Log(moudle = "权限管理",descrption = "修改角色权限")
 	public JSONObject updateRole(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
-		System.out.println("requestJson:" + requestJson);
+		System.out.println("requestJson:" + requestJson );
 		return userService.updateRole(requestJson);
 	}
 
@@ -101,6 +108,7 @@ public class UserController {
 	 */
 	@RequiresPermissions("role:delete")
 	@PostMapping("/deleteRole")
+	@Log(moudle = "权限管理",descrption = "删除角色权限")
 	public JSONObject deleteRole(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "roleId");
 		return userService.deleteRole(requestJson);
