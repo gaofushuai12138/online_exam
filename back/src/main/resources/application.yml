@@ -7,3 +7,9 @@ mybatis:
    mapperLocations: classpath:/mapper/*.xml
 server:
   port: 8082
+
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count = countSql
