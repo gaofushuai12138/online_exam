@@ -3,51 +3,48 @@ package com.heeexy.example.bean;
 import java.util.Date;
 
 public class SysLog {
-    private int logId;
-    private int userId;
-    private String opName;
-    private Date opDate;
-    private String Label;
+    private int logid;
+
+    private String moudle;
+
+    private String description;
+
+    private String ip;
+
     private String username;
 
-    public int getLogId() {
-        return logId;
+    private String  operationTime;
+
+    public int getLogid() {
+        return logid;
     }
 
-    public void setLogId(int logId) {
-        this.logId = logId;
+    public void setLogid(int logid) {
+        this.logid = logid;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getMoudle() {
+        return moudle;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setMoudle(String moudle) {
+        this.moudle = moudle;
     }
 
-    public String getOpName() {
-        return opName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setOpName(String opName) {
-        this.opName = opName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getOpDate() {
-        return opDate;
+    public String getIp() {
+        return ip;
     }
 
-    public void setOpDate(Date opDate) {
-        this.opDate = opDate;
-    }
-
-    public String getLabel() {
-        return Label;
-    }
-
-    public void setLabel(String label) {
-        Label = label;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public String getUsername() {
@@ -58,15 +55,23 @@ public class SysLog {
         this.username = username;
     }
 
+    public String getOperationTime() {
+        return operationTime;
+    }
+
+    public void setOperationTime(String operationTime) {
+        this.operationTime = operationTime;
+    }
+
     @Override
     public String toString() {
         return "SysLog{" +
-                "logId=" + logId +
-                ", userId=" + userId +
-                ", opName='" + opName + '\'' +
-                ", opDate=" + opDate +
-                ", Label='" + Label + '\'' +
+                "logid=" + logid +
+                ", moudle='" + moudle + '\'' +
+                ", description='" + description + '\'' +
+                ", ip='" + ip + '\'' +
                 ", username='" + username + '\'' +
+                ", operationTime='" + operationTime + '\'' +
                 '}';
     }
 }

@@ -1,8 +1,10 @@
 package com.heeexy.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.heeexy.example.config.annotation.Log;
 import com.heeexy.example.service.LoginService;
 import com.heeexy.example.util.CommonUtil;
+import com.heeexy.example.util.ECache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +27,11 @@ public class LoginController {
 	 * 登录
 	 */
 	@PostMapping("/auth")
+	@Log(moudle = "用户管理",descrption = "登录操作")
 	public JSONObject authLogin(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "username,password");
+		ECache.put("username",requestJson.getString("username"),24 * 60 * 1000);
+		System.out.println("username:"+ ECache.get("username"));
 		return loginService.authLogin(requestJson);
 	}
 
@@ -42,6 +47,7 @@ public class LoginController {
 	 * 登出
 	 */
 	@PostMapping("/logout")
+	@Log(moudle = "用户管理",descrption = "登出操作")
 	public JSONObject logout() {
 		return loginService.logout();
 	}
