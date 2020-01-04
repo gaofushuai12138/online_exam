@@ -1,6 +1,8 @@
 package com.heeexy.example.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.heeexy.example.bean.SysLog;
 import com.heeexy.example.dao.SysLogDao;
 import com.heeexy.example.service.SysLogService;
@@ -14,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class SysLogServiceImpl implements SysLogService {
@@ -38,5 +41,13 @@ public class SysLogServiceImpl implements SysLogService {
         String currenttime = rightNow.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:ss"));
         log.setOperationTime(currenttime);
         return sysLogDao.addSysLog(log);
+    }
+
+    @Override
+    public PageInfo<SysLog> getAllSysLog(Integer pageNum, Integer pageSize) throws Exception {
+        PageHelper.startPage(pageNum,pageSize);
+        List<SysLog> sysLogs = sysLogDao.getAllSysLog();
+        PageInfo<SysLog> pageInfo = new PageInfo<>(sysLogs);
+        return pageInfo;
     }
 }

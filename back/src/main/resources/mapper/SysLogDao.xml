@@ -16,4 +16,9 @@
     </insert>
 
 
+    <select id="getAllSysLog" resultMap="SysLog">
+        select * from syslog
+    </select>
+
+
 </mapper>
