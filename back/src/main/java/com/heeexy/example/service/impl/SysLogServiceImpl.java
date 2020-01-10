@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.heeexy.example.bean.SysLog;
 import com.heeexy.example.dao.SysLogDao;
 import com.heeexy.example.service.SysLogService;
+import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
 import com.heeexy.example.util.ECache;
 import com.heeexy.example.util.IPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class SysLogServiceImpl implements SysLogService {
     }
 
     @Override
-    public PageInfo<SysLog> getAllSysLog(Integer pageNum, Integer pageSize) throws Exception {
-        PageHelper.startPage(pageNum,pageSize);
-        List<SysLog> sysLogs = sysLogDao.getAllSysLog();
+    public PageInfo<SysLog> getAllSysLog(SysLogTableInfo sysLog) throws Exception {
+        PageHelper.startPage(sysLog.getPageNum(),sysLog.getPageSize());
+        List<SysLog> sysLogs = sysLogDao.getAllSysLog(sysLog);
         PageInfo<SysLog> pageInfo = new PageInfo<>(sysLogs);
         return pageInfo;
     }

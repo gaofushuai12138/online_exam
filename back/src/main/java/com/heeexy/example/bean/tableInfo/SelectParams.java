@@ -1,16 +1,19 @@
-package com.heeexy.example.bean;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.heeexy.example.bean.tableInfo;
 
 public class SelectParams {
 
 
-    private int pageSize;
 
+
+
+
+    //日志
+
+
+    private int pageSize;
 
     private int pageNum;
 
-    @JsonIgnore
     public int getPageSize() {
         return pageSize;
     }
@@ -19,8 +22,6 @@ public class SelectParams {
         this.pageSize = pageSize;
     }
 
-
-    @JsonIgnore
     public int getPageNum() {
         return pageNum;
     }

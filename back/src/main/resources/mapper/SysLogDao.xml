@@ -18,6 +18,16 @@
 
     <select id="getAllSysLog" resultMap="SysLog">
         select * from syslog
+        where 1 = 1
+        <if test="sysLog != null">
+            <if test="sysLog.username != null">
+                and username = #{sysLog.username}
+            </if>
+            <!--<if test="sysLog.username != null">-->
+<!--&#45;&#45;                 and username like LIKE concat('%',#{sysLog.username},'%')-->
+            <!--</if>-->
+        </if>
+
     </select>
 
 

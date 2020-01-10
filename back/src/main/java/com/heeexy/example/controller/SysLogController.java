@@ -1,15 +1,12 @@
 package com.heeexy.example.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.bean.Message;
-import com.heeexy.example.bean.SelectParams;
 import com.heeexy.example.bean.SysLog;
 import com.heeexy.example.service.SysLogService;
-import com.heeexy.example.util.CommonUtil;
+import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,10 +25,10 @@ public class SysLogController {
      * @return
      */
     @RequestMapping(value = "/getAllSysLog",method = RequestMethod.POST)
-    public Message getAllSysLog(@RequestBody SysLog sysLog){
+    public Message getAllSysLog(@RequestBody SysLogTableInfo sysLog){
         try {
-            System.out.println(sysLog.getPageNum());
-            PageInfo<SysLog> pageInfo = sysLogService.getAllSysLog(sysLog.getPageNum(),sysLog.getPageSize());
+            System.out.println(sysLog.getSysLog());
+            PageInfo<SysLog> pageInfo = sysLogService.getAllSysLog(sysLog);
             if(pageInfo != null){
                 return new Message(Message.SUCCESS,"查询成功!",pageInfo);
             }else {

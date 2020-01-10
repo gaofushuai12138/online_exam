@@ -1,8 +1,6 @@
 package com.heeexy.example.bean;
 
-import java.util.Date;
-
-public class SysLog extends SelectParams{
+public class SysLog  {
     private int logid;
 
     private String moudle;
