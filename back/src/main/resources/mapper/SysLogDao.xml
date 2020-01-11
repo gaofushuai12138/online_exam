@@ -5,14 +5,14 @@
    <resultMap id="SysLog" type="com.heeexy.example.bean.SysLog">
        <id column="logid" property="logid"></id>
        <result column="username" property="username"></result>
-       <result column="module" property="moudle"></result>
+       <result column="module" property="module"></result>
        <result column="description" property="description"></result>
        <result column="ip" property="ip"></result>
        <result column="operationtime" property="operationTime"></result>
    </resultMap>
 
     <insert id="addSysLog">
-        insert into syslog(module,description,ip,operationtime,username) values (#{moudle},#{description},#{ip},#{operationTime},#{username})
+        insert into syslog(module,description,ip,operationtime,username) values (#{module},#{description},#{ip},#{operationTime},#{username})
     </insert>
 
 
@@ -20,12 +20,22 @@
         select * from syslog
         where 1 = 1
         <if test="sysLog != null">
-            <if test="sysLog.username != null">
+            <if test="sysLog.username != null and sysLog.username != ''">
                 and username = #{sysLog.username}
             </if>
-            <!--<if test="sysLog.username != null">-->
-<!--&#45;&#45;                 and username like LIKE concat('%',#{sysLog.username},'%')-->
-            <!--</if>-->
+            <if test="sysLog.module != null and sysLog.module != ''">
+                and module = #{sysLog.module}
+            </if>
+            <if test="sysLog.description and sysLog.description != ''">
+                and description = #{sysLog.description}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and operationtime <![CDATA[>=]]> #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and operationtime <![CDATA[<=]]> #{endTime}
+            </if>
+
         </if>
 
     </select>
