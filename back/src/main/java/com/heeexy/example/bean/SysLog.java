@@ -1,9 +1,11 @@
 package com.heeexy.example.bean;
 
-public class SysLog  {
+import java.io.Serializable;
+
+public class SysLog implements Serializable {
     private int logid;
 
-    private String moudle;
+    private String module;
 
     private String description;
 
@@ -21,12 +23,12 @@ public class SysLog  {
         this.logid = logid;
     }
 
-    public String getMoudle() {
-        return moudle;
+    public String getModule() {
+        return module;
     }
 
     public void setMoudle(String moudle) {
-        this.moudle = moudle;
+        this.module = moudle;
     }
 
     public String getDescription() {
@@ -65,7 +67,7 @@ public class SysLog  {
     public String toString() {
         return "SysLog{" +
                 "logid=" + logid +
-                ", moudle='" + moudle + '\'' +
+                ", moudle='" + module + '\'' +
                 ", description='" + description + '\'' +
                 ", ip='" + ip + '\'' +
                 ", username='" + username + '\'' +

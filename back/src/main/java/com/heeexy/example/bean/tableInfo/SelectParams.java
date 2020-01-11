@@ -2,13 +2,9 @@ package com.heeexy.example.bean.tableInfo;
 
 public class SelectParams {
 
+    private String startTime;
 
-
-
-
-
-    //日志
-
+    private String endTime;
 
     private int pageSize;
 
@@ -26,9 +22,33 @@ public class SelectParams {
         return pageNum;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     public void setPageNum(int pageNum) {
         this.pageNum = pageNum;
     }
 
-
+    @Override
+    public String toString() {
+        return "SelectParams{" +
+                "startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", pageSize=" + pageSize +
+                ", pageNum=" + pageNum +
+                '}';
+    }
 }

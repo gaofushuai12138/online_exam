@@ -4,54 +4,54 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Message {
-    public static int SUCCESS = 1;
+    public static int SUCCESS = 100;
     public static int FAILURE = 0;
     public static int ERROR = -1;
-    private int status;
-    private String message;
-    private Object result;
+    private int code;
+    private String msg;
+    private Object info;
 
     /**
      *
      * @return
      */
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String message) {
+        this.msg = message;
     }
 
-    public Object getResult() {
-        return result;
+    public Object getInfo() {
+        return info;
     }
 
-    public void setResult(Object result) {
-        this.result = result;
+    public void setInfo(Object result) {
+        this.info = result;
     }
 
     public Message(int status, String message, Object result) {
-        this.status = status;
-        this.message = message;
-        this.result = result;
+        this.code = status;
+        this.msg = message;
+        this.info = result;
     }
 
     @Override
     public String toString() {
         return "Message{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", result=" + result +
+                "status=" + code +
+                ", message='" + msg + '\'' +
+                ", result=" + info +
                 '}';
     }
 

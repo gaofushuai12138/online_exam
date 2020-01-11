@@ -64,6 +64,7 @@
           pageRow: 50,//每页条数
           name: ''
         },
+        initQuery:{},
         dialogStatus: 'create',
         dialogFormVisible: false,
         textMap: {

@@ -6,6 +6,7 @@ import com.heeexy.example.bean.Message;
 import com.heeexy.example.bean.SysLog;
 import com.heeexy.example.service.SysLogService;
 import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
+import com.heeexy.example.util.constants.ErrorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,9 @@ public class SysLogController {
     @RequestMapping(value = "/getAllSysLog",method = RequestMethod.POST)
     public Message getAllSysLog(@RequestBody SysLogTableInfo sysLog){
         try {
-            System.out.println(sysLog.getSysLog());
+            System.out.println(sysLog);
+//            System.out.println(sysLog.getPageNum() + " , " + sysLog.getPageSize());
+//            System.out.println(sysLog.getSysLog());
             PageInfo<SysLog> pageInfo = sysLogService.getAllSysLog(sysLog);
             if(pageInfo != null){
                 return new Message(Message.SUCCESS,"查询成功!",pageInfo);
@@ -36,7 +39,7 @@ public class SysLogController {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new Message(Message.ERROR,"",null);
+            return new Message(Message.ERROR,"查询失败!",null);
         }
     }
 }

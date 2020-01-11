@@ -1,23 +1,14 @@
 <template>
     <div class="app-container">
         <div class="filter-container">
-            
-              <!-- <el-select class="block" style="margin-left:1200px;margin-top:-40px;position:absolute" v-model="queryForm.value" clearable placeholder="操作类型">
-                <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-               
-            </el-select> -->
-            <el-button type="primary" style="margin-left:0px;margin-top:-40px;width:80px;" @click="queryLog">查询</el-button>
-            <el-input v-model="queryForm.operater" placeholder="操作者" style="width:300px;margin-left:20px"></el-input>
-            <el-input v-model="queryForm.operaterecord" placeholder="操作记录" style="width:300px;margin-left:40px"></el-input>
-            <div class="block" style="margin-left:830px;margin-top:-40px;width:400px">
+            <el-button type="primary" style="margin-left:0px;margin-top:-40px;width:80px;" @click="queryAllLog">查询</el-button>
+            <el-button type="danger" style="width:80px;" @click="clearAll">清空</el-button>
+            <el-input v-model="formData.username" placeholder="操作者" style="width:300px;margin-left:20px"></el-input>
+            <el-input v-model="formData.description" placeholder="操作记录" style="width:300px;margin-left:40px"></el-input>
+            <div class="block" style="margin-left:870px;margin-top:-40px;width:400px">
                 <el-date-picker
                 style="width:450px"
-                v-model="queryForm.dateTime"
+                v-model="formData.dataTime"
                 type="daterange"
                 range-separator="至"
                 start-placeholder="开始日期"
@@ -26,47 +17,54 @@
             </div>
             <el-table
                 border
+                v-loading.body = "listLoading"
                 :data="tableData"
+                element-loading-text="拼命加载中"
+                fit
+                highlight-current-row
                 style="width: 100%;margin-top:20px">
                 <el-table-column
                 align="center"
-                    prop="index"
+                    prop="logid"
                     label="序号"
                     width="180">
                 </el-table-column>
                 <el-table-column
                 align="center"
-                    prop="name"
+                    prop="username"
                     label="操作者"
                     width="180">
                 </el-table-column>
                 <el-table-column
+                label="ip"
                 align="center"
-                    prop="operate"
-                    label="操作记录">
+                prop="ip"></el-table-column>
+                <el-table-column
+                align="center"
+                    prop="module"
+                    label="操作模块">
+                </el-table-column>
+                <el-table-column
+                align="center"
+                    prop="description"
+                    label="操作内容">
                 </el-table-column>
                 <el-table-column
                 label="操作时间"
                 align="center"
-                prop="operatedate">
-                </el-table-column>
-                <el-table-column
-                label="操作类型"
-                align="center">
-                <template slot-scope="scope">
-                    <el-tag type="success" v-text="scope.row.operatetype"></el-tag>
-                </template>
+                prop="operationTime">
                 </el-table-column>
             </el-table>
-             <div class="pagination" style="margin-left:1450px;margin-top:15px">
+             <div class="pagination" style="margin-top:17px">
                 <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="queryForm.pageIndex"
-                    :page-size="queryForm.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                ></el-pagination>
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="pageNum"
+                  :page-size="pageRow"
+                  :total="pageTotal"
+                  :page-sizes="[10, 20, 50, 100]"
+                  layout="total, sizes, prev, pager, next, jumper">
+                </el-pagination>
             </div>
         </div>
     </div>
@@ -76,110 +74,132 @@
 export default {
   data() {
     return {
-        queryForm:{
-          operater:"",
-          operaterecord:"",
-          dateTime:"",
-          value:"",
-          pageIndex:1,
-          pageSize:10
-        },
-        pageTotal:10,
-        dateTime:"",
-        input:"",
-        totalCount: 0, //分页组件--数据总条数
-         options: [{
-          value: "用户管理",
-          label: "用户管理"
-        }, {
-          value: '权限管理',
-          label: '权限管理'
-        }, {
-          value: '日志管理',
-          label: '日志管理'
-        }],
-        value: '',
-        tableData: [{
-            index:1,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1518 弄',
-            operatedate:"2016-05-03",
-            operatetype:"用户管理"
-          }, {
-            index:2,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1517 弄',
-            operatedate: '2016-05-04',
-            operatetype:"用户管理"
-          }, {
-            index:3,
-            date: '2016-05-01',
-            name: '王小虎',
-            operate:"黄玉东还钱！",
-            operatedate: '2016-03-04',
-            operatetype:"用户管理"
-          }, {
-            index:4,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1516 弄',
-            operatedate:"2016-03-04",
-            operatetype:"用户管理"
-          },{
-            index:5,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1518 弄',
-            operatedate:"2016-05-03",
-            operatetype:"用户管理"
-          }, {
-            index:6,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1517 弄',
-            operatedate: '2016-05-04',
-            operatetype:"用户管理"
-          }, {
-            index:7,
-            date: '2016-05-01',
-            name: '王小虎',
-            operate:"黄玉东还钱！",
-            operatedate: '2016-03-04',
-            operatetype:"用户管理"
-          }, {
-            index:8,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1516 弄',
-            operatedate:"2016-03-04",
-            operatetype:"用户管理"
-          }, {
-            index:9,
-            date: '2016-05-01',
-            name: '王小虎',
-            operate:"黄玉东还钱！",
-            operatedate: '2016-03-04',
-            operatetype:"用户管理"
-          }, {
-            index:10,
-            name: '王小虎',
-            operate: '上海市普陀区金沙江路 1516 弄',
-            operatedate:"2016-03-04",
-            operatetype:"用户管理"
-          }],
-            listLoading:false,
-            listQuery:{
-                pageNum:1,
-                pageRow:50
-            },
-            role:[]
+      pageNum: 1,
+      pageRow: 10,
+      formData: {
+        username:"",
+        description:"",
+        dataTime:""
+      },
+      pageSize:10,
+      initQuery:{
+        pageSize:10,
+        pageNum:1
+      
+      },
+      pageTotal: 1000,
+      value: "",
+      tableData: [],
+      listLoading: false,
+      role: []
     };
+  },
+  created() {
+    this.getList();
   },
   mounted() {},
   methods: {
-      queryLog(){
-          console.log(this.queryForm)
-      },
-      handlePageChange(){
+    clearAll(){
+      this.formData.username = "",
+      this.formData.description = "",
+      this.formData.dataTime = ""
+    },
+    getList(){
+      this.listLoading = true;
+      let _this = this;
+      this.api({
+        url:"/log/getAllSysLog",
+        method:"post",
+        data:this.initQuery
+      }).then((result) => {
+        _this.pageNum = 1;
+        _this.pageTotal = result.total
+        _this.tableData = result.list
+        _this.listLoading = false;
+      }).catch((err) => {
+        
+      });
 
+    },
+    queryAllLog() {
+     
+      let startTime = null;
+      let endTime = null;
+      if(this.formData.dataTime != ""){
+        startTime = this.$moment(this.formData.dataTime[0]).format('YYYY-MM-DD HH:mm:ss') ;
+        endTime = this.$moment(this.formData.dataTime[1]).format('YYYY-MM-DD HH:mm:ss') ;
       }
-  },
+      let _this = this;
+      let params = {
+        pageSize:10,
+        pageNum:1,
+        syslog:this.formData,
+        startTime:startTime,
+        endTime:endTime
+      }
+      console.log(params)
+      this.api({
+        url:"/log/getAllSysLog",
+        method:"post",
+        data:params
+      }).then((result) => {
+        console.log(result)
+        _this.tableData = result.list;
+      }).catch((err) => {
+        
+      });
+    },
+    handleCurrentChange(val) {
+      let _this = this;
+      let pageRow = this.pageRow;
+      let params = {
+        pageNum:val,
+        pageSize:pageRow
+      }
+      this.api({
+        url:"/log/getAllSysLog",
+        method:"post",
+        data:params
+      }).then((data) => {
+        console.log(data.list)
+        _this.tableData = data.list;
+      }).catch((err) => {
+        
+      });
+    },
+    handleSizeChange(val) {
+      // console.log(val);
+      let _this = this;
+      let pageNum = this.pageNum;
+      let startTime = null;
+      let endTime = null;
+      this.pageRow = val;
+      if(this.formData.dataTime != ''){
+        startTime = this.$moment(this.formData.dataTime[0]).format('YYYY-MM-DD HH:mm:ss') 
+        endTime = this.$moment(this.formData.dataTime[1]).format('YYYY-MM-DD HH:mm:ss') 
+      }
+      let params = {
+        pageNum : pageNum,
+        pageSize:val,
+        startTime:startTime,
+        endTime:endTime,
+        syslog:{
+          username:this.formData.username,
+          description:this.formData.description,
+        }
+      }
+      this.api({
+        url:"/log/getAllSysLog",
+        method:"post",
+        data:params
+      }).then((result) => {
+        console.log(result.list)
+        _this.tableData = result.list
+      }).catch((err) => {
+        
+      });
+    }
+  }
 };
 </script>
 

@@ -12,4 +12,11 @@ public class SysLogTableInfo extends SelectParams {
     public void setSysLog(SysLog sysLog) {
         this.sysLog = sysLog;
     }
+
+    @Override
+    public String toString() {
+        return "SysLogTableInfo{" +
+                "sysLog=" + sysLog +
+                '}';
+    }
 }
