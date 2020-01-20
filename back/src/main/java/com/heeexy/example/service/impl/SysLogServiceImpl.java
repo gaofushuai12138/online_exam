@@ -46,7 +46,8 @@ public class SysLogServiceImpl implements SysLogService {
 
     @Override
     public PageInfo<SysLog> getAllSysLog(SysLogTableInfo sysLog) throws Exception {
-        PageHelper.startPage(sysLog.getPageNum(),sysLog.getPageSize());
+        String ordby = "operationtime DESC";
+        PageHelper.startPage(sysLog.getPageNum(),sysLog.getPageSize(),ordby);
         List<SysLog> sysLogs = sysLogDao.getAllSysLog(sysLog);
         PageInfo<SysLog> pageInfo = new PageInfo<>(sysLogs);
         return pageInfo;
