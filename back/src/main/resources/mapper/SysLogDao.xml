@@ -21,12 +21,12 @@
         where 1 = 1
         <if test="sysLog != null">
             <if test="sysLog.username != null and sysLog.username != ''">
-                and username = #{sysLog.username}
+                and username like "%"#{sysLog.username,jdbcType=VARCHAR}"%"
             </if>
             <if test="sysLog.module != null and sysLog.module != ''">
                 and module = #{sysLog.module}
             </if>
-            <if test="sysLog.description and sysLog.description != ''">
+            <if test="sysLog.description != null and sysLog.description != ''">
                 and description = #{sysLog.description}
             </if>
             <if test="startTime != null and startTime != ''">

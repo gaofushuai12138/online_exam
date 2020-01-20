@@ -122,7 +122,6 @@ export default {
 
     },
     queryAllLog() {
-     
       let startTime = null;
       let endTime = null;
       if(this.formData.dataTime != ""){
@@ -133,9 +132,10 @@ export default {
       let params = {
         pageSize:10,
         pageNum:1,
-        syslog:this.formData,
+        sysLog:this.formData,
         startTime:startTime,
-        endTime:endTime
+        endTime:endTime,
+        sysLog:this.formData
       }
       console.log(params)
       this.api({
@@ -145,6 +145,7 @@ export default {
       }).then((result) => {
         console.log(result)
         _this.tableData = result.list;
+        _this.pageTotal = result.total
       }).catch((err) => {
         
       });
@@ -154,7 +155,8 @@ export default {
       let pageRow = this.pageRow;
       let params = {
         pageNum:val,
-        pageSize:pageRow
+        pageSize:pageRow,
+        sysLog:this.formData
       }
       this.api({
         url:"/log/getAllSysLog",
@@ -183,10 +185,7 @@ export default {
         pageSize:val,
         startTime:startTime,
         endTime:endTime,
-        syslog:{
-          username:this.formData.username,
-          description:this.formData.description,
-        }
+        sysLog:this.formData
       }
       this.api({
         url:"/log/getAllSysLog",
