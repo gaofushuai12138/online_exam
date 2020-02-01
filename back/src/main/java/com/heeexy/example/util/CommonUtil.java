@@ -1,6 +1,7 @@
 package com.heeexy.example.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.heeexy.example.bean.Message;
 import com.heeexy.example.config.exception.CommonJsonException;
 import com.heeexy.example.util.constants.Constants;
 import com.heeexy.example.util.constants.ErrorEnum;
@@ -175,5 +176,17 @@ public class CommonUtil {
 	 */
 	public static void fillPageParam(final JSONObject paramObject) {
 		fillPageParam(paramObject, 10);
+	}
+
+
+	/***
+	 * 判断传入参数是否为空
+	 */
+	public static Message isEmpty(Object object){
+		if(object == null){
+			return new Message(Message.FAILURE,"参数为空",null);
+		}else {
+			return new Message(Message.SUCCESS,"参数正确",null);
+		}
 	}
 }

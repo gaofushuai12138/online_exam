@@ -17,6 +17,7 @@
         <result column="roleName" property="roleName"/>
         <result column="createTime" property="createTime"/>
         <result column="updateTime" property="updateTime"/>
+        <result column="department_id" property="department_id"></result>
         <result column="lastLoginTime" property="lastLoginTime"/>
         <result column="deleteStatus" property="deleteStatus"/>
         <collection property="permissionList" ofType="String">
@@ -26,7 +27,7 @@
     <select id="listUser" resultMap="userMap">
         SELECT
             u.*,
-            r.role_name                            roleName,
+            r.role_name                            roleName,department_id,
             CONCAT(p.menu_name, p.permission_name) permissionName
         FROM (
                  SELECT
@@ -34,6 +35,7 @@
                      username                                username,
                      nickname                                nickname,
                      role_id                                 roleId,
+                     department_id                           department_id,
                      delete_status                           deleteStatus,
                      DATE_FORMAT(create_time, '%Y.%m.%d %T') createTime,
                      DATE_FORMAT(update_time, '%Y.%m.%d %T') updateTime
@@ -108,6 +110,7 @@
         WHERE r.delete_status = '1'
         ORDER BY r.id, p.id
     </select>
+
     <resultMap id="permissionMap" type="com.heeexy.example.util.model.One2Many">
         <id column="menuName" property="menuName"/>
         <collection property="permissions" ofType="com.alibaba.fastjson.JSONObject">
@@ -116,6 +119,7 @@
             <result column="requiredPerm" property="requiredPerm" javaType="Integer"/>
         </collection>
     </resultMap>
+
     <select id="listAllPermission" resultMap="permissionMap">
         SELECT
             p.id                  id,

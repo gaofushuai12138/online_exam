@@ -1,6 +1,8 @@
 package com.heeexy.example.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.heeexy.example.bean.Department;
+import com.heeexy.example.dao.DepartmentDao;
 import com.heeexy.example.dao.UserDao;
 import com.heeexy.example.service.UserService;
 import com.heeexy.example.util.CommonUtil;
@@ -27,6 +29,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+
+	@Autowired
+	private DepartmentDao departmentDao;
+
 	/**
 	 * 用户列表
 	 */
@@ -35,6 +41,13 @@ public class UserServiceImpl implements UserService {
 		CommonUtil.fillPageParam(jsonObject);
 		int count = userDao.countUser(jsonObject);
 		List<JSONObject> list = userDao.listUser(jsonObject);
+		for(int i = 0;i < list.size();i++){
+			Integer id = (Integer) list.get(i).get("department_id");
+			Department department = departmentDao.getDepartmentById(id);
+			String departmentname = department.getDepartmentName();
+			list.get(i).put("departmentname",departmentname);
+			list.get(i).remove("department_id");
+		}
 		return CommonUtil.successPage(jsonObject, list, count);
 	}
 
