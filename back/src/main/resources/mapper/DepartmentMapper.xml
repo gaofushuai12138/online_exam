@@ -5,8 +5,31 @@
     <resultMap id="Department" type="com.heeexy.example.bean.Department">
         <id column="department_id" property="departmentId"></id>
         <result column="departmentname" property="departmentName"></result>
-        <result column="describe" property="departmentDes"></result>
+        <result column="des" property="departmentDes"></result>
     </resultMap>
+
+
+    <!--插入部门数据-->
+    <insert id="insertDepartment">
+        insert into department(departmentname,des) values (#{department.departmentName},#{department.departmentDes})
+    </insert>
+
+    <!--修改部门数据-->
+    <update id="updateDepartment">
+        update department
+        set
+          departmentname = #{department.departmentName}
+          <!--<if test="department.departmentDes != null and department.departmentDes != ''">-->
+            ,des = #{department.departmentDes}
+          <!--</if>-->
+        where
+        department_id = #{department.departmentId}
+    </update>
+
+    <!--删除部门数据-->
+    <delete id="deleteDepartment">
+        delete from department where departmentname = #{department.departmentName}
+    </delete>
 
     <!--根据id查询单位-->
     <select id="getDepartmentById" resultMap="Department">

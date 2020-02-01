@@ -4,6 +4,7 @@ package com.heeexy.example.controller;
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.bean.Message;
 import com.heeexy.example.bean.SysLog;
+import com.heeexy.example.config.annotation.Log;
 import com.heeexy.example.service.SysLogService;
 import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
 import com.heeexy.example.util.constants.ErrorEnum;
@@ -31,6 +32,7 @@ public class SysLogController {
      */
     @ApiOperation(value = "查询所有日志")
     @ApiImplicitParam(name = "sysLog")
+    @Log(moudle = "日志管理",descrption = "查询日志列表")
     @RequestMapping(value = "/getAllSysLog",method = RequestMethod.POST)
     public Message getAllSysLog(@RequestBody SysLogTableInfo sysLog){
         try {
@@ -41,7 +43,7 @@ public class SysLogController {
             if(pageInfo != null){
                 return new Message(Message.SUCCESS,"查询成功!",pageInfo);
             }else {
-                return new Message(Message.FAILURE,"查询失败!",null);
+                return new Message(Message.ERROR,"查询失败!",null);
             }
         }catch (Exception e){
             e.printStackTrace();
