@@ -23,6 +23,7 @@
           <el-tag type="primary" v-text="scope.row.roleName" v-else></el-tag>
         </template>
       </el-table-column>
+      <el-table-column align="center" label="部门" prop="departmentname"></el-table-column>
       <el-table-column align="center" label="创建时间" prop="createTime" width="170"></el-table-column>
       <el-table-column align="center" label="最近修改时间" prop="updateTime" width="170"></el-table-column>
       <el-table-column align="center" label="管理" width="220" v-if="hasPerm('user:update')">
@@ -105,6 +106,7 @@
           username: '',
           password: '',
           nickname: '',
+          departmentname:"",
           roleId: '',
           userId: '',
           createTime:this.$moment().format('YYYY-MM-DD HH:mm:ss')
@@ -139,6 +141,7 @@
           method: "get",
           params: this.listQuery
         }).then(data => {
+          console.log(data);
           this.listLoading = false;
           this.list = data.list;
           this.totalCount = data.totalCount;
@@ -178,6 +181,7 @@
         this.tempUser.username = user.username;
         this.tempUser.nickname = user.nickname;
         this.tempUser.roleId = user.roleId;
+        this.tempUser.departmentname = user.departmentname;
         this.tempUser.userId = user.userId;
         this.tempUser.deleteStatus = '1';
         this.tempUser.password = '';

@@ -2,8 +2,9 @@ package com.test;
 
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.MyApplication;
+import com.heeexy.example.bean.Department;
 import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
-import com.heeexy.example.dao.SysLogDao;
+import com.heeexy.example.service.DepartmentService;
 import com.heeexy.example.service.SysLogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.sound.midi.Soundbank;
-import java.util.List;
 
 @SpringBootTest(classes = MyApplication.class)
 @RunWith(SpringRunner.class)
@@ -23,6 +21,10 @@ public class TestMethod {
 
     @Autowired
     private SysLogService sysLogService;
+
+
+    @Autowired
+    private DepartmentService departmentService;
 
     @Test
     public void testFindSysLog(){
@@ -40,6 +42,21 @@ public class TestMethod {
     @Test
     public void test(){
         System.out.println("2221");
+    }
+
+
+    @Test
+    public void testFindDepartmentById(){
+        Department department = departmentService.getDepartmentById(1);
+        System.out.println(department);
+    }
+
+
+
+    @Test
+    public void testLomBok(){
+
+
     }
 
 
