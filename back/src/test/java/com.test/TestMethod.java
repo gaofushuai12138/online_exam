@@ -3,6 +3,7 @@ package com.test;
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.MyApplication;
 import com.heeexy.example.bean.Department;
+import com.heeexy.example.bean.tableInfo.DepartmentTableInfo;
 import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
 import com.heeexy.example.service.DepartmentService;
 import com.heeexy.example.service.SysLogService;
@@ -25,6 +26,9 @@ public class TestMethod {
 
     @Autowired
     private DepartmentService departmentService;
+
+
+
 
     @Test
     public void testFindSysLog(){
@@ -57,6 +61,17 @@ public class TestMethod {
     public void testLomBok(){
 
 
+    }
+
+
+    @Test
+    public void testUpdateDepartment(){
+        Department department = new Department();
+        department.setDepartmentId(17);
+        department.setDepartmentName("测试234");
+        DepartmentTableInfo departmentTableInfo = new DepartmentTableInfo();
+        departmentTableInfo.setDepartment(department);
+        departmentService.editDepartment(departmentTableInfo);
     }
 
 

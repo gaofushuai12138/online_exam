@@ -29,6 +29,7 @@ public class UserController {
 	/**
 	 * 查询用户列表
 	 */
+	@Log(moudle = "用户管理",descrption = "查看用户列表")
 	@RequiresPermissions("user:list")
 	@GetMapping("/list")
 	public JSONObject listUser(HttpServletRequest request) {

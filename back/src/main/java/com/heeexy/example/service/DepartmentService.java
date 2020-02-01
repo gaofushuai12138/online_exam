@@ -12,7 +12,7 @@ public interface DepartmentService {
 
     int editDepartment(DepartmentTableInfo department);
 
-    int deleteDepartment(Department department);
+    int deleteDepartment(DepartmentTableInfo department);
 
     PageInfo<DepartmentTableInfo> getDepartmentInfos();
 

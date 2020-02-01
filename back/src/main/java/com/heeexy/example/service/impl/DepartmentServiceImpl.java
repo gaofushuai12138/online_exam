@@ -24,17 +24,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public int addDepartment(DepartmentTableInfo department) {
-        return 0;
+        return departmentDao.insertDepartment(department);
     }
 
     @Override
     public int editDepartment(DepartmentTableInfo department) {
-        return 0;
+        return departmentDao.updateDepartment(department);
     }
 
     @Override
-    public int deleteDepartment(Department department) {
-        return 0;
+    public int deleteDepartment(DepartmentTableInfo department) {
+        return departmentDao.deleteDepartment(department);
     }
 
     @Override
