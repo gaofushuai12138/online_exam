@@ -46,7 +46,7 @@ public class DepartmentController {
 
 
     @RequestMapping(value = "/getAllDepartmentInfo",method = RequestMethod.POST)
-    @Log(moudle = "部门管理",descrption = "查询部门列表")
+//    @Log(moudle = "部门管理",descrption = "查询部门列表")
     public Message getAllDepartmentInfo(@RequestBody DepartmentTableInfo departmentTableInfo){
         try {
             PageInfo<Department> pageInfo = departmentService.getAllDepartmentInfos(departmentTableInfo);
@@ -64,7 +64,7 @@ public class DepartmentController {
 
     @Log(moudle = "部门管理",descrption = "添加部门")
     @RequestMapping(value = "/addDepartment",method = RequestMethod.POST)
-    public Message addDepartment(@Valid @RequestBody DepartmentTableInfo departmentTableInfo){
+    public Message addDepartment(@RequestBody DepartmentTableInfo departmentTableInfo){
         try {
             departmentService.addDepartment(departmentTableInfo);
             return new Message(Message.SUCCESS,"添加成功!",null);

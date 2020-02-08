@@ -69,6 +69,11 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="部门" required>
+          <el-select placeholder="请选择" v-model="tempUser.department_id">
+            <el-option v-for="department in departments" :key="department.departmentId" :label="department.departmentName" :value="department.departmentId"> </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="昵称" required>
           <el-input type="text" v-model="tempUser.nickname">
           </el-input>
@@ -96,6 +101,7 @@
           pageRow: 50,//每页条数
         },
         roles: [],//角色列表
+        departments:[],
         dialogStatus: 'create',
         dialogFormVisible: false,
         textMap: {
@@ -107,6 +113,7 @@
           password: '',
           nickname: '',
           departmentname:"",
+          department_id:"",
           roleId: '',
           userId: '',
           createTime:this.$moment().format('YYYY-MM-DD HH:mm:ss')
@@ -124,6 +131,9 @@
         'userId'
       ])
     },
+    mounted() {
+      this.getdepartmentList();
+    },
     methods: {
       getAllRoles() {
         this.api({
@@ -131,6 +141,16 @@
           method: "get"
         }).then(data => {
           this.roles = data.list;
+        })
+      },
+      getdepartmentList(){
+        let _this = this;
+        this.api({
+          url:"/department/list",
+          method:"post",
+        }).then((data) => {
+          console.log(data);
+          _this.departments = data;
         })
       },
       getList() {
@@ -178,10 +198,11 @@
       },
       showUpdate($index) {
         let user = this.list[$index];
+        console.log(user)
         this.tempUser.username = user.username;
         this.tempUser.nickname = user.nickname;
         this.tempUser.roleId = user.roleId;
-        this.tempUser.departmentname = user.departmentname;
+        this.tempUser.department_id = user.department_id;
         this.tempUser.userId = user.userId;
         this.tempUser.deleteStatus = '1';
         this.tempUser.password = '';

@@ -61,8 +61,8 @@
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO sys_user
-        (username, password, nickname, role_id,create_time) VALUES
-            (#{username}, #{password}, #{nickname}, #{roleId},#{createTime})
+        (username, password, nickname, department_id,role_id,create_time) VALUES
+            (#{username}, #{password}, #{nickname},#{department_id}, #{roleId},#{createTime})
     </insert>
 
     <update id="updateUser">
@@ -72,6 +72,7 @@
         <if test="password !='' and password !=null">
             , password = #{password}
         </if>
+        ,department_id = #{department_id}
 
         , role_id = #{roleId}
         , delete_status = #{deleteStatus}

@@ -40,7 +40,7 @@ public class UserController {
 	@PostMapping("/addUser")
 	@Log(moudle = "用户管理",descrption = "添加用户")
 	public JSONObject addUser(@RequestBody JSONObject requestJson) {
-		CommonUtil.hasAllRequired(requestJson, "username, password, nickname,   roleId");
+		CommonUtil.hasAllRequired(requestJson, "username, password, nickname,  department_id ,roleId");
 		System.out.println("--------------"+requestJson);
 
 //		return null;
@@ -51,7 +51,7 @@ public class UserController {
 	@PostMapping("/updateUser")
 	@Log(moudle = "用户管理",descrption = "修改用户")
 	public JSONObject updateUser(@RequestBody JSONObject requestJson) {
-		CommonUtil.hasAllRequired(requestJson, " nickname,   roleId, deleteStatus, userId");
+		CommonUtil.hasAllRequired(requestJson, " nickname,   department_id,roleId, deleteStatus, userId");
 		return userService.updateUser(requestJson);
 	}
 

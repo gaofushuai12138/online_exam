@@ -31,7 +31,6 @@ public class LoginController {
 	public JSONObject authLogin(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "username,password");
 		ECache.put("username",requestJson.getString("username"),24 * 60 * 1000);
-		System.out.println("username:"+ ECache.get("username"));
 		return loginService.authLogin(requestJson);
 	}
 

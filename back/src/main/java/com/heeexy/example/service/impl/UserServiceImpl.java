@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
 			Department department = departmentDao.getDepartmentById(id);
 			String departmentname = department.getDepartmentName();
 			list.get(i).put("departmentname",departmentname);
-			list.get(i).remove("department_id");
 		}
 		return CommonUtil.successPage(jsonObject, list, count);
 	}
