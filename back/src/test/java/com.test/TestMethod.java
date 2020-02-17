@@ -3,9 +3,13 @@ package com.test;
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.MyApplication;
 import com.heeexy.example.bean.Department;
+import com.heeexy.example.bean.Subject;
 import com.heeexy.example.bean.tableInfo.DepartmentTableInfo;
+import com.heeexy.example.bean.tableInfo.SubjectTableInfo;
 import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
 import com.heeexy.example.service.DepartmentService;
+
+import com.heeexy.example.service.SubjectService;
 import com.heeexy.example.service.SysLogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootTest(classes = MyApplication.class)
 @RunWith(SpringRunner.class)
@@ -26,6 +33,10 @@ public class TestMethod {
 
     @Autowired
     private DepartmentService departmentService;
+
+
+    @Autowired
+    private SubjectService subjectService;
 
 
 
@@ -75,4 +86,35 @@ public class TestMethod {
     }
 
 
+    @Test
+    public void testinsertSubject(){
+        try {
+            Subject subject = new Subject();
+            subject.setSubjectName("c#");
+            LocalDateTime rightNow = LocalDateTime.now();
+            String currenttime = rightNow.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:ss"));
+            System.out.println(currenttime);
+            subject.setUpdateTime(currenttime);
+            SubjectTableInfo subjectTableInfo = new SubjectTableInfo();
+            subjectTableInfo.setSubject(subject);
+            subjectService.insertSubject(subjectTableInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Test
+    public void testdeleteSubject(){
+        Subject sub = new Subject();
+        sub.setSubjectId(2);
+        SubjectTableInfo subjectTableInfo = new SubjectTableInfo();
+        subjectTableInfo.setSubject(sub);
+        try {
+            subjectService.deleteSubject(subjectTableInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

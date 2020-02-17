@@ -117,9 +117,7 @@ export default {
         _this.tableData = result.list
         _this.listLoading = false;
       }).catch((err) => {
-        
       });
-
     },
     queryAllLog() {
       let startTime = null;
@@ -204,6 +202,7 @@ export default {
 
 
 <style scoped>
+
 </style>
 
 

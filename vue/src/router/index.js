@@ -65,10 +65,21 @@ export const asyncRouterMap = [
     path:"/department",
     component:Layout,
     redirect:"sys/department",
-    meta:{title:"部门管理",icon:"example"},
+    meta:{title:"专业管理",icon:"example"},
     children:[
       {
-        path:"",name:"部门管理",component:_import('department/department'),meta:{title:"部门管理",icon:"example"},menu:"department"
+        path:"",name:"专业管理",component:_import('department/department'),meta:{title:"专业管理",icon:"example"},menu:"department"
+      }
+    ]
+  },
+  {
+    path:"/subject",
+    component:Layout,
+    redirect:"sys/subject",
+    meta:{title:"学科管理",icon:"example"},
+    children:[
+      {
+        path:"",name:"学科管理",component:_import('subject/subject'),meta:{title:"学科管理",icon:"example"},menu:"subject"
       }
     ]
   },
