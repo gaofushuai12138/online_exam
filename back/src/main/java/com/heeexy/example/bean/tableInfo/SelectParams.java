@@ -1,6 +1,8 @@
 package com.heeexy.example.bean.tableInfo;
 
-public class SelectParams {
+import com.alibaba.fastjson.JSONObject;
+
+public class SelectParams  {
 
     private String startTime;
 

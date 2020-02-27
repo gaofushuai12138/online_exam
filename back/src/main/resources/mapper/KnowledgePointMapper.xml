@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.KnowledgePointDao">
+    <resultMap id="KnowledgeMap" type="com.heeexy.example.bean.KnowledgePoint">
+        <id column="id" property="id"></id>
+        <result column="subjectId" property="subjectId"></result>
+        <result column="content" property="content"></result>
+        <result column="updatetime" property="updateTime"></result>
+        <association property="subject" javaType="com.heeexy.example.bean.Subject">
+            <id column="id" property="subjectId"></id>
+            <result column="subjectname" property="subjectName"></result>
+        </association>
+    </resultMap>
+
+    <insert id="insertKnowledges">
+        insert into knowledgepoint(content,subjectId,updatetime) values (#{knowledgePoint.content},#{knowledgePoint.subjectId},
+        #{knowledgePoint.updateTime})
+    </insert>
+    <delete id="deleteKnowledges">
+        delete from knowledgepoint where id = #{knowledgePoint.id}
+    </delete>
+
+    <select id="getAllKnowledges" resultMap="KnowledgeMap">
+        select
+        s.subjectname,k.*
+        from
+        subject s,knowledgepoint k
+        where s.id = k.subjectId and 1 = 1
+        <if test="knowledgePoint != null">
+            <if test="knowledgePoint.content != null and knowledgePoint.content != ''">
+                and k.content like '%${knowledgePoint.content}%'
+            </if>
+            <if test="knowledgePoint.subjectId != null">
+                and k.subjectId = #{knowledgePoint.subjectId}
+            </if>
+        </if>
+
+
+    </select>
+</mapper>

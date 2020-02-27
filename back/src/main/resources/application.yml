@@ -14,12 +14,3 @@ pagehelper:
   support-methods-arguments: true
   params: count = countSql
 
-news:
-  neteasy:
-    url: http://news.163.com/rank/
-  toutiao:
-    url: https://www.toutiao.com/ch/news_hot/
-  sohu:
-    url: http://news.sohu.com/
-  ifeng:
-    url: http://www.ifeng.com/

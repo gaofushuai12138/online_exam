@@ -146,7 +146,7 @@
       getdepartmentList(){
         let _this = this;
         this.api({
-          url:"/department/list",
+          url:"/major/list",
           method:"post",
         }).then((data) => {
           console.log(data);

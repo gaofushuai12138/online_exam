@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/major")
 @Api("部门管理")
 public class DepartmentController {
 
