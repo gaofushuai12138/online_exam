@@ -79,9 +79,30 @@ export const asyncRouterMap = [
     meta:{title:"学科管理",icon:"example"},
     children:[
       {
-        path:"",name:"学科管理",component:_import('subject/subject'),meta:{title:"学科管理",icon:"example"},menu:"subject"
+        path:"course",name:"课程管理",component:_import('subject/subject'),meta:{title:"课程管理",icon:"example"},menu:"subject"
+      },
+      {
+        path:"knowledge",name:"知识点管理",component:_import('subject/knowledge'),meta:{title:"知识点管理",icon:"example"}
       }
     ]
+  },
+  {
+    path:"/question",
+    component:Layout,
+    redirect:"/sys/question",
+    meta:{title:"题库管理",icon:"example"},
+    children:[
+      {
+        path:"single",name:"选择题管理",component:_import('question/singleProblem'),meta:{title:"选择题管理",icon:"example"}
+      },
+      {
+        path:"judge",name:"判断题管理",component:_import('question/JudgeProblem'),meta:{title:"判断题管理",icon:"example"}
+      },
+      {
+        path:"subjective",name:"主观题管理",component:_import('question/subjectiveProblem'),meta:{title:"主观题管理",icon:"example"}
+      }
+    ]
+
   },
   {
     path:"/log",

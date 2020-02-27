@@ -3,12 +3,16 @@ package com.test;
 import com.github.pagehelper.PageInfo;
 import com.heeexy.example.MyApplication;
 import com.heeexy.example.bean.Department;
+import com.heeexy.example.bean.KnowledgePoint;
+import com.heeexy.example.bean.SimpleProblem;
 import com.heeexy.example.bean.Subject;
-import com.heeexy.example.bean.tableInfo.DepartmentTableInfo;
-import com.heeexy.example.bean.tableInfo.SubjectTableInfo;
-import com.heeexy.example.bean.tableInfo.SysLogTableInfo;
+import com.heeexy.example.bean.tableInfo.*;
+import com.heeexy.example.dao.KnowledgePointDao;
+import com.heeexy.example.dao.SingleProblemDao;
+import com.heeexy.example.dao.SubjectDao;
 import com.heeexy.example.service.DepartmentService;
 
+import com.heeexy.example.service.SimpleProblemService;
 import com.heeexy.example.service.SubjectService;
 import com.heeexy.example.service.SysLogService;
 import org.junit.Test;
@@ -20,6 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @SpringBootTest(classes = MyApplication.class)
 @RunWith(SpringRunner.class)
@@ -75,6 +80,63 @@ public class TestMethod {
     }
 
 
+    @Autowired
+    private SingleProblemDao singleProblemDao;
+
+    @Test
+    public void testgetsingleProblem(){
+        SimpleProblemTableInfo simpleProblemTableInfo = new SimpleProblemTableInfo();
+        List list = singleProblemDao.getSingleProblemList(simpleProblemTableInfo);
+        System.out.println(list);
+    }
+
+
+    @Test
+    public void testgetsingleSubject(){
+
+    }
+
+
+    @Autowired
+    SubjectDao subjectDao;
+    @Test
+    public void testgetIdByname(){
+        int id = subjectDao.getSubjectIdByName("java");
+        System.out.println(id);
+
+    }
+
+
+    @Autowired
+    SimpleProblemService simpleProblemService;
+    @Test
+    public void insertsingleProblem(){
+        SimpleProblem simpleProblem = new SimpleProblem();
+        simpleProblem.setSubjectId(1);
+        simpleProblem.setTitle("gaga");
+        simpleProblem.setAnswerA("asaasas");
+        simpleProblem.setAnswerB("ssaasas");
+        simpleProblem.setAnswerC("dsdsdsdds");
+        simpleProblem.setAnswerD("sssas");
+        simpleProblem.setDiff(1);
+        simpleProblem.setCorrectAnswer("D");
+        SimpleProblemTableInfo simpleProblemTableInfo = new SimpleProblemTableInfo();
+        simpleProblemTableInfo.setSimpleProblem(simpleProblem);
+        simpleProblemService.insertSimpleProblem(simpleProblemTableInfo);
+
+    }
+
+
+    @Autowired
+    KnowledgePointDao knowledgePointDao;
+
+    @Test
+    public void testgetKnowledgeList(){
+       List list = knowledgePointDao.getAllKnowledges(null);
+        System.out.println(list);
+    }
+
+
     @Test
     public void testUpdateDepartment(){
         Department department = new Department();
@@ -116,5 +178,20 @@ public class TestMethod {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    @Test
+    public void testinsertKnowLedge(){
+        KnowledgePoint knowledgePoint = new KnowledgePoint();
+        knowledgePoint.setSubjectId(1);
+        knowledgePoint.setContent("设计模式");
+        KnowledgeTableInfo knowledgeTableInfo = new KnowledgeTableInfo();
+        knowledgeTableInfo.setKnowledgePoint(knowledgePoint);
+        LocalDateTime rightNow = LocalDateTime.now();
+        String currenttime = rightNow.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:ss"));
+        knowledgePoint.setUpdateTime(currenttime);
+        knowledgePointDao.insertKnowledges(knowledgeTableInfo);
     }
 }

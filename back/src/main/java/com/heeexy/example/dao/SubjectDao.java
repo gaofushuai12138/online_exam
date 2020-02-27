@@ -15,4 +15,6 @@ public interface SubjectDao {
 
     int updateSubject(SubjectTableInfo subjectTableInfo);
 
+    int getSubjectIdByName(String name);
+
 }

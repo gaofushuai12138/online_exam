@@ -18,7 +18,8 @@
     </update>
 
     <delete id="deleteSubject">
-        delete from subject where id = #{subject.subjectId}
+        delete subject,knowledgepoint from subject left join knowledgepoint on subject.id = knowledgepoint.subjectId
+        where subject.id = #{subject.subjectId}
     </delete>
 
     <select id="getAllSubject" resultMap="SubjectMap">
@@ -31,5 +32,9 @@
                 and subjectname = #{subject.subjectName}
             </if>
         </if>
+    </select>
+
+    <select id="getSubjectIdByName" resultType="java.lang.Integer">
+        select id from subject  where subjectname = #{name}
     </select>
 </mapper>

@@ -1,4 +1,4 @@
 package com.heeexy.example.dao;
 
-public interface QuestionDao {
+public interface JudgeProblemDao {
 }

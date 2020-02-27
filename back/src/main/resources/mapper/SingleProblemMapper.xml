@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.SingleProblemDao">
+
+    <resultMap id="singleProblem" type="com.heeexy.example.bean.SimpleProblem">
+        <id column="id" property="id"></id>
+        <result column="title" property="title"></result>
+        <result column="AnswerA" property="AnswerA"></result>
+        <result column="AnswerB" property="AnswerB"></result>
+        <result column="AnswerC" property="AnswerC"></result>
+        <result column="AnswerD" property="AnswerD"></result>
+        <result column="correctAnswer" property="correctAnswer"></result>
+        <result column="Diff" property="Diff"></result>
+        <association property="subject" javaType="com.heeexy.example.bean.Subject">
+            <id column="id" property="subjectId"></id>
+            <id column="subjectname" property="subjectName"></id>
+        </association>
+    </resultMap>
+
+    <insert id="insertSimpleProblem">
+        insert into singleProblem(subjectId,title,AnswerA,AnswerB,AnswerC,AnswerD,Diff,correctAnswer)
+        values (#{simpleProblem.subjectId},#{simpleProblem.title},#{simpleProblem.AnswerA},
+        #{simpleProblem.AnswerB},#{simpleProblem.AnswerC},#{simpleProblem.AnswerD},#{simpleProblem.Diff},#{simpleProblem.correctAnswer})
+    </insert>
+
+    <select id="getSingleProblemListBysubject" resultMap="singleProblem">
+        select
+        p.id,p.title,p.AnswerA,p.AnswerB,p.AnswerC,p.AnswerD,p.Diff,
+        s.id,s.subjectname
+        from
+        subject s,singleProblem p
+        where
+        s.id = p.id
+    </select>
+
+
+    <select id="getSingleProblemList" resultMap="singleProblem">
+        select
+        s.id,s.title,s.AnswerA,s.AnswerB,s.AnswerC,s.AnswerD,s.Diff
+        from singleProblem s
+    </select>
+
+</mapper>
+
+

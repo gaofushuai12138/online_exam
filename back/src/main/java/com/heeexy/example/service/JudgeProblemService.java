@@ -1,4 +1,4 @@
 package com.heeexy.example.service;
 
-public interface QuestionService {
+public interface JudgeProblemService {
 }

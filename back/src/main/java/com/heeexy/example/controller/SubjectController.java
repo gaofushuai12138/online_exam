@@ -19,6 +19,7 @@ import sun.nio.cs.ext.MS874;
 
 import java.security.PublicKey;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/subject")
@@ -62,7 +63,6 @@ public class SubjectController {
     public Message updateSubject(@RequestBody SubjectTableInfo subjectTableInfo){
         try {
             JSONObject jsonObject = JSONObject.parseObject(subjectTableInfo.getSubject().toJson());
-            System.out.println(jsonObject);
             HashMap map = CommonUtil.AllRequired(jsonObject,"subjectName");
             System.out.println(map);
             if(map != null){
@@ -89,5 +89,16 @@ public class SubjectController {
     }
 
 
+
+    @RequestMapping(value = "/getlist",method = RequestMethod.POST)
+    public Message getSubjectList(){
+        try {
+            List<Subject> subjects = subjectService.getSubjectList();
+            return new Message(Message.SUCCESS,"获取成功",subjects);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Message(Message.FAILURE,"获取失败",null);
+        }
+    }
 
 }

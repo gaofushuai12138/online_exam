@@ -47,4 +47,14 @@ public class SubjectServiceImpl implements SubjectService {
         PageInfo<Subject> pageInfo = new PageInfo<>(subjects);
         return pageInfo;
     }
+
+    @Override
+    public int getsubjectIdByName(String name) throws Exception {
+        return subjectDao.getSubjectIdByName(name);
+    }
+
+    @Override
+    public List<Subject> getSubjectList() {
+        return subjectDao.getAllSubject(null);
+    }
 }
