@@ -82,7 +82,7 @@ export const asyncRouterMap = [
         path:"course",name:"课程管理",component:_import('subject/subject'),meta:{title:"课程管理",icon:"example"},menu:"subject"
       },
       {
-        path:"knowledge",name:"知识点管理",component:_import('subject/knowledge'),meta:{title:"知识点管理",icon:"example"}
+        path:"knowledge",name:"章节管理",component:_import('subject/knowledge'),meta:{title:"章节管理",icon:"example"}
       }
     ]
   },

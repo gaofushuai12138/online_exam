@@ -1,6 +1,7 @@
 package com.heeexy.example.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.heeexy.example.bean.Message;
 import com.heeexy.example.bean.SimpleProblem;
 import com.heeexy.example.bean.Subject;
@@ -33,11 +34,55 @@ public class SimpleProblemController {
     @RequestMapping(value = "/getSimpleProblemList",method = RequestMethod.POST)
     public Message getSimpleProblemList(@RequestBody SimpleProblemTableInfo simpleProblemTableInfo){
         try {
-            List<Subject> subjects = subjectService.getSubjectList();
-            return new Message(Message.SUCCESS,"查询成功!",subjects);
+//            List<Subject> subjects = subjectService.getSubjectList();
+            PageInfo<SimpleProblem> pageInfo = simpleProblemService.getSimpleProblemList(simpleProblemTableInfo);
+            return new Message(Message.SUCCESS,"查询成功!",pageInfo);
         }catch (Exception e){
             e.printStackTrace();
             return new Message(Message.FAILURE,"查询失败!",null);
+        }
+    }
+
+
+    @RequestMapping(value = "/deletesingleProblem",method = RequestMethod.POST)
+    public Message deleteSimpleProblem(@RequestBody SimpleProblemTableInfo simpleProblemTableInfo){
+        try {
+            int resultOfdel = simpleProblemService.deleteSimpleProblem(simpleProblemTableInfo);
+            if(resultOfdel != -1){
+                return new Message(Message.SUCCESS,"删除成功",null);
+            }else {
+                return new Message(Message.FAILURE,"删除失败",null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Message(Message.FAILURE,"删除失败!",null);
+        }
+    }
+
+    @RequestMapping(value = "/insertSimpleProblem",method = RequestMethod.POST)
+    public Message insertSimpleProblem(@RequestBody SimpleProblemTableInfo simpleProblemTableInfo){
+        try {
+            simpleProblemService.insertSimpleProblem(simpleProblemTableInfo);
+            return new Message(Message.SUCCESS,"插入成功",null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Message(Message.FAILURE,"插入失败!",null);
+        }
+    }
+
+
+    @RequestMapping(value = "/updateSimpleProblm",method = RequestMethod.POST )
+    public Message updateSimpleProblem(@RequestBody SimpleProblemTableInfo simpleProblemTableInfo){
+        try {
+            int resOfUpdate = simpleProblemService.updateSimpleProblem(simpleProblemTableInfo);
+            if(resOfUpdate != -1){
+                return new Message(Message.SUCCESS,"修改成功!",null);
+            }else {
+                return new Message(Message.FAILURE,"修改失败!",null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Message(Message.FAILURE,"修改失败",null);
         }
     }
 

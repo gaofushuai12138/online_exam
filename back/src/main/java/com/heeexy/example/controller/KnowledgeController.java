@@ -22,8 +22,6 @@ public class KnowledgeController {
     private KnowledgeService knowledgeService;
 
 
-
-
     @RequestMapping(value = "/insertKnowledge",method = RequestMethod.POST)
     public Message insertKnowledgeList(@RequestBody KnowledgeTableInfo knowledgeTableInfo){
         try {
@@ -42,7 +40,6 @@ public class KnowledgeController {
         try {
             System.out.println(knowledgeTableInfo);
             PageInfo<KnowledgePoint> list = knowledgeService.getPageKnowledgeList(knowledgeTableInfo);
-
             return new Message(Message.SUCCESS,"查询成功!",list);
         }catch (Exception e){
             e.printStackTrace();

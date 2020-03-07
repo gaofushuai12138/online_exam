@@ -14,4 +14,10 @@ public interface SingleProblemDao {
 
 
     int insertSimpleProblem(SimpleProblemTableInfo simpleProblemTableInfo);
+
+
+    int deleteSimpleProblem(SimpleProblemTableInfo simpleProblemTableInfo);
+
+
+    int updateSimpleProblem(SimpleProblemTableInfo simpleProblemTableInfo);
 }

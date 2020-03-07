@@ -3,38 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.heeexy.example.dao.SubjectDao">
     <resultMap id="SubjectMap" type="com.heeexy.example.bean.Subject">
-        <id column="id" property="subjectId"></id>
+        <id column="sid" property="subjectId"></id>
         <result column="subjectname" property="subjectName"></result>
         <result column="createtime" property="createTime"></result>
         <result column="updatetime" property="updateTime"></result>
+        <collection property="knowledgePoints" ofType="com.heeexy.example.bean.KnowledgePoint">
+            <id column="kid" property="id"></id>
+            <result column="subjectId" property="subjectId"></result>
+            <result column="content" property="content"></result>
+        </collection>
     </resultMap>
 
     <insert id="insertSubject">
-        insert into subject(subjectname,updatetime) values (#{subject.subjectName},#{subject.updateTime})
+        insert into t_subject(subjectname,updatetime) values (#{subject.subjectName},#{subject.updateTime})
     </insert>
 
     <update id="updateSubject">
-        update subject set subjectname = #{subject.subjectName} where id = #{subject.subjectId}
+        update t_subject set subjectname = #{subject.subjectName} where id = #{subject.subjectId}
     </update>
 
     <delete id="deleteSubject">
-        delete subject,knowledgepoint from subject left join knowledgepoint on subject.id = knowledgepoint.subjectId
-        where subject.id = #{subject.subjectId}
+        delete
+        t_subject,knowledgepoint
+        from t_subject
+        left join knowledgepoint on t_subject.id = knowledgepoint.subjectId
+        where t_subject.id = #{subject.subjectId}
     </delete>
 
     <select id="getAllSubject" resultMap="SubjectMap">
-        select * from
-        subject
-        where
-        1 = 1
-        <if test="subject != null">
-            <if test="subject.subjectName != null and subject.subjectName != ''">
-                and subjectname = #{subject.subjectName}
+        select s.id sid,s.subjectname,s.createtime,s.updatetime,k.id kid ,k.subjectId,k.content from
+        t_subject s
+        left join knowledgepoint k on k.subjectId = s.id
+        <where>
+            <if test="subject != null">
+                <if test="subject.subjectName != null and subject.subjectName != ''">
+                    and subjectname = #{subject.subjectName}
+                </if>
             </if>
-        </if>
+        </where>
     </select>
 
     <select id="getSubjectIdByName" resultType="java.lang.Integer">
-        select id from subject  where subjectname = #{name}
+        select id from t_subject  where subjectname = #{name}
     </select>
 </mapper>
