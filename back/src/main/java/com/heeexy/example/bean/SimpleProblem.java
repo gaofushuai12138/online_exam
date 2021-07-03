@@ -25,4 +25,10 @@ public class SimpleProblem {
     private String correctAnswer;   //正确答案
 
     private Integer Diff;      //试题难度
+
+    private Integer chapterId;    //章节id
+
+    private KnowledgePoint knowledgePoint;  //章节
+
+    private int score;  //分数
 }

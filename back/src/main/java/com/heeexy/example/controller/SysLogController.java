@@ -36,9 +36,6 @@ public class SysLogController {
     @RequestMapping(value = "/getAllSysLog",method = RequestMethod.POST)
     public Message getAllSysLog(@RequestBody SysLogTableInfo sysLog){
         try {
-            System.out.println(sysLog);
-//            System.out.println(sysLog.getPageNum() + " , " + sysLog.getPageSize());
-//            System.out.println(sysLog.getSysLog());
             PageInfo<SysLog> pageInfo = sysLogService.getAllSysLog(sysLog);
             if(pageInfo != null){
                 return new Message(Message.SUCCESS,"查询成功!",pageInfo);

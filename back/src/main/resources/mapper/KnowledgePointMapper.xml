@@ -20,11 +20,13 @@
         delete from knowledgepoint where id = #{knowledgePoint.id}
     </delete>
 
+
+
     <select id="getAllKnowledges" resultMap="KnowledgeMap">
         select
         s.subjectname,k.*
         from
-        subject s,knowledgepoint k
+        t_subject s,knowledgepoint k
         where s.id = k.subjectId and 1 = 1
         <if test="knowledgePoint != null">
             <if test="knowledgePoint.content != null and knowledgePoint.content != ''">
@@ -34,7 +36,5 @@
                 and k.subjectId = #{knowledgePoint.subjectId}
             </if>
         </if>
-
-
     </select>
 </mapper>

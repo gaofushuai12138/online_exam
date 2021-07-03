@@ -5,32 +5,50 @@
     <resultMap id="singleProblem" type="com.heeexy.example.bean.SimpleProblem">
         <id column="id" property="id"></id>
         <result column="title" property="title"></result>
+        <result column="subjectId" property="subjectId"></result>
         <result column="AnswerA" property="AnswerA"></result>
         <result column="AnswerB" property="AnswerB"></result>
         <result column="AnswerC" property="AnswerC"></result>
+        <result column="chapterId" property="chapterId"></result>
         <result column="AnswerD" property="AnswerD"></result>
         <result column="correctAnswer" property="correctAnswer"></result>
+        <result column="score" property="score"></result>
         <result column="Diff" property="Diff"></result>
         <association property="subject" javaType="com.heeexy.example.bean.Subject">
-            <id column="id" property="subjectId"></id>
-            <id column="subjectname" property="subjectName"></id>
+            <result column="id" property="subjectId"></result>
+            <result column="subjectname" property="subjectName"></result>
+        </association>
+        <association property="knowledgePoint" javaType="com.heeexy.example.bean.KnowledgePoint">
+            <id column="id" property="id"></id>
+            <id column="content" property="content"></id>
         </association>
     </resultMap>
 
     <insert id="insertSimpleProblem">
-        insert into singleProblem(subjectId,title,AnswerA,AnswerB,AnswerC,AnswerD,Diff,correctAnswer)
+        insert into singleProblem(subjectId,title,AnswerA,AnswerB,AnswerC,AnswerD,Diff,correctAnswer,chapterId,score)
         values (#{simpleProblem.subjectId},#{simpleProblem.title},#{simpleProblem.AnswerA},
-        #{simpleProblem.AnswerB},#{simpleProblem.AnswerC},#{simpleProblem.AnswerD},#{simpleProblem.Diff},#{simpleProblem.correctAnswer})
+        #{simpleProblem.AnswerB},#{simpleProblem.AnswerC},#{simpleProblem.AnswerD},#{simpleProblem.Diff},#{simpleProblem.correctAnswer},#{simpleProblem.chapterId},#{simpleProblem.score})
     </insert>
+
+    <update id="updateSimpleProblem">
+        update singleProblem set subjectId = #{simpleProblem.subjectId},title = #{simpleProblem.title} ,AnswerA = #{simpleProblem.AnswerA},
+        AnswerB = #{simpleProblem.AnswerB},AnswerC = #{simpleProblem.AnswerC},AnswerD = #{simpleProblem.AnswerD},correctAnswer = #{simpleProblem.correctAnswer},
+        Diff = #{simpleProblem.Diff},score = #{simpleProblem.score} where id = #{simpleProblem.id}
+    </update>
+
+    <delete id="deleteSimpleProblem">
+        delete from singleProblem where id = #{simpleProblem.id}
+    </delete>
 
     <select id="getSingleProblemListBysubject" resultMap="singleProblem">
         select
-        p.id,p.title,p.AnswerA,p.AnswerB,p.AnswerC,p.AnswerD,p.Diff,
-        s.id,s.subjectname
+        p.id,p.title,p.AnswerA,p.AnswerB,p.AnswerC,p.AnswerD,p.Diff,p.subjectId,p.chapterId,p.correctAnswer,p.score,
+        s.id,s.subjectname,
+        k.id,k.content
         from
-        subject s,singleProblem p
-        where
-        s.id = p.id
+        singleProblem p
+        left join t_subject s on s.id = p.subjectId
+        left join knowledgepoint k on p.chapterId = k.id and k.subjectId = p.subjectId
     </select>
 
 

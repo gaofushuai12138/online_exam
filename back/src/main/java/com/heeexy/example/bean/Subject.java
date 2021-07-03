@@ -7,6 +7,8 @@ import com.heeexy.example.bean.tableInfo.SubjectTableInfo;
 import lombok.Data;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 
+import java.util.List;
+
 @Data
 public class Subject{
 
@@ -17,6 +19,8 @@ public class Subject{
     private String createTime;
 
     private String updateTime;
+
+    private List<KnowledgePoint> knowledgePoints;
 
     public String toJson(){
         ObjectMapper objectMapper = new ObjectMapper();
